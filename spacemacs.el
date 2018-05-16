@@ -311,4 +311,6 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (spacemacs/set-leader-keys "g d" 'magit-diff-working-tree)
   (spacemacs/set-leader-keys "g D" 'magit-diff-staged)
+  (global-set-key (kbd "C-\\") 'evil-escape)
+  (define-key evil-normal-state-map (kbd "C-w C-q") 'evil-quit)
   )
