@@ -149,7 +149,7 @@ values."
    dotspacemacs-emacs-leader-key "M-m"
    ;; Major mode leader key is a shortcut key which is the equivalent of
    ;; pressing `<leader> m`. Set it to `nil` to disable it. (default ",")
-   dotspacemacs-major-mode-leader-key ","
+   dotspacemacs-major-mode-leader-key "\\"
    ;; Major mode leader key accessible in `emacs state' and `insert state'.
    ;; (default "C-M-m")
    dotspacemacs-major-mode-emacs-leader-key "C-M-m"
@@ -208,7 +208,7 @@ values."
    dotspacemacs-enable-paste-transient-state nil
    ;; Which-key delay in seconds. The which-key buffer is the popup listing
    ;; the commands bound to the current keystroke sequence. (default 0.4)
-   dotspacemacs-which-key-delay 0.4
+   dotspacemacs-which-key-delay 1.0
    ;; Which-key frame position. Possible values are `right', `bottom' and
    ;; `right-then-bottom'. right-then-bottom tries to display the frame to the
    ;; right; if there is insufficient space it displays it at the bottom.
@@ -309,8 +309,16 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  (unless window-system
+	(setq fringe-mode nil))
   (spacemacs/set-leader-keys "g d" 'magit-diff-working-tree)
   (spacemacs/set-leader-keys "g D" 'magit-diff-staged)
   (global-set-key (kbd "C-\\") 'evil-escape)
   (define-key evil-normal-state-map (kbd "C-w C-q") 'evil-quit)
+  (define-key evil-insert-state-map (kbd "C-l") 'end-of-line)
+  (define-key evil-normal-state-map (kbd "TAB d") 'neotree-toggle)
+  (define-key evil-normal-state-map (kbd "TAB D") 'neotree-show)
+  (define-key evil-normal-state-map (kbd "TAB TAB") 'helm-mini)
+  (define-key evil-normal-state-map (kbd "TAB s") 'evil-window-vsplit)
+  (define-key evil-normal-state-map (kbd "TAB S") 'evil-window-split)
   )
