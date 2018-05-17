@@ -149,7 +149,7 @@ values."
    dotspacemacs-emacs-leader-key "M-m"
    ;; Major mode leader key is a shortcut key which is the equivalent of
    ;; pressing `<leader> m`. Set it to `nil` to disable it. (default ",")
-   dotspacemacs-major-mode-leader-key "\\"
+   dotspacemacs-major-mode-leader-key "TAB"
    ;; Major mode leader key accessible in `emacs state' and `insert state'.
    ;; (default "C-M-m")
    dotspacemacs-major-mode-emacs-leader-key "C-M-m"
@@ -241,7 +241,7 @@ values."
    ;; If non nil show the color guide hint for transient state keys. (default t)
    dotspacemacs-show-transient-state-color-guide t
    ;; If non nil unicode symbols are displayed in the mode line. (default t)
-   dotspacemacs-mode-line-unicode-symbols t
+   dotspacemacs-mode-line-unicode-symbols nil
    ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters point
    ;; when it reaches the top or bottom of the screen. (default t)
@@ -316,9 +316,9 @@ you should place your code here."
   (global-set-key (kbd "C-\\") 'evil-escape)
   (define-key evil-normal-state-map (kbd "C-w C-q") 'evil-quit)
   (define-key evil-insert-state-map (kbd "C-l") 'end-of-line)
-  (define-key evil-normal-state-map (kbd "TAB d") 'neotree-toggle)
-  (define-key evil-normal-state-map (kbd "TAB D") 'neotree-show)
-  (define-key evil-normal-state-map (kbd "TAB TAB") 'helm-mini)
-  (define-key evil-normal-state-map (kbd "TAB s") 'evil-window-vsplit)
-  (define-key evil-normal-state-map (kbd "TAB S") 'evil-window-split)
+  (define-key evil-normal-state-map (kbd "\\ d") 'neotree-toggle)
+  (define-key evil-normal-state-map (kbd "\\ D") 'neotree-show)
+  (define-key evil-normal-state-map (kbd "\\ \\") 'helm-mini)
+  (define-key evil-normal-state-map (kbd "\\ s") 'evil-window-vsplit)
+  (define-key evil-normal-state-map (kbd "\\ S") 'evil-window-split)
   )
