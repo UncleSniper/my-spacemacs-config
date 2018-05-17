@@ -321,4 +321,8 @@ you should place your code here."
   (define-key evil-normal-state-map (kbd "\\ \\") 'helm-mini)
   (define-key evil-normal-state-map (kbd "\\ s") 'evil-window-vsplit)
   (define-key evil-normal-state-map (kbd "\\ S") 'evil-window-split)
+  (setq-default fill-column 120)
+  (add-hook 'prog-mode-hook 'turn-on-fci-mode)
+  (add-hook 'text-mode-hook 'turn-on-fci-mode)
+  (add-hook 'org-mode-hook 'turn-off-fci-mode 'append)
   )
