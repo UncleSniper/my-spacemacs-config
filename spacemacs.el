@@ -55,7 +55,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(smart-tabs-mode)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -304,29 +304,44 @@ before packages are loaded. If you are unsure, you should try in setting them in
   )
 
 (defun dotspacemacs/user-config ()
-  "Configuration function for user code.
-This function is called at the very end of Spacemacs initialization after
-layers configuration.
-This is the place where most of your configurations should be done. Unless it is
-explicitly specified that a variable should be set before a package is loaded,
-you should place your code here."
-  (unless window-system
-	(setq fringe-mode nil))
-  (spacemacs/set-leader-keys "g d" 'magit-diff-working-tree)
-  (spacemacs/set-leader-keys "g D" 'magit-diff-staged)
-  (global-set-key (kbd "C-\\") 'evil-escape)
-  (define-key evil-normal-state-map (kbd "C-w C-q") 'evil-quit)
-  (define-key evil-insert-state-map (kbd "C-l") 'end-of-line)
-  (define-key evil-normal-state-map (kbd "\\ d") 'neotree-toggle)
-  (define-key evil-normal-state-map (kbd "\\ D") 'neotree-show)
-  (define-key evil-normal-state-map (kbd "\\ \\") 'helm-mini)
-  (define-key evil-normal-state-map (kbd "\\ s") 'evil-window-vsplit)
-  (define-key evil-normal-state-map (kbd "\\ S") 'evil-window-split)
-  (setq-default fill-column 120)
-  (add-hook 'prog-mode-hook 'turn-on-fci-mode)
-  (add-hook 'text-mode-hook 'turn-on-fci-mode)
-  (add-hook 'org-mode-hook 'turn-off-fci-mode 'append)
-  )
+	(unless window-system
+		(setq fringe-mode nil))
+	; misc key bindings
+	(spacemacs/set-leader-keys "g d" 'magit-diff-working-tree)
+	(spacemacs/set-leader-keys "g D" 'magit-diff-staged)
+	(global-set-key (kbd "C-\\") 'evil-escape)
+	(define-key evil-normal-state-map (kbd "C-w C-q") 'evil-quit)
+	(define-key evil-insert-state-map (kbd "C-l") 'end-of-line)
+	(define-key evil-normal-state-map (kbd "\\ d") 'neotree-toggle)
+	(define-key evil-normal-state-map (kbd "\\ D") 'neotree-show)
+	(define-key evil-normal-state-map (kbd "\\ \\") 'helm-mini)
+	(define-key evil-normal-state-map (kbd "\\ s") 'evil-window-vsplit)
+	(define-key evil-normal-state-map (kbd "\\ S") 'evil-window-split)
+	; fci
+	(setq-default fill-column 120)
+	(add-hook 'prog-mode-hook 'turn-on-fci-mode)
+	(add-hook 'text-mode-hook 'turn-on-fci-mode)
+	(add-hook 'org-mode-hook 'turn-off-fci-mode 'append)
+	; tabbery
+	(setq-default indent-tabs-mode nil)
+	(add-hook 'c-mode-common-hook #'infer-tabbery)
+)
+
+(defun infer-tabbery ()
+	(setq c-basic-offset 4 tab-width 4)
+	(let ((use-smart-tabs (not (find-file-upwards ".spaces"))))
+		(setq indent-tabs-mode use-smart-tabs)
+		(setq smart-tabs-mode use-smart-tabs)))
+
+(defun find-file-upwards (basename &optional look-in)
+	(let*
+		((where (file-name-as-directory (or look-in default-directory)))
+		 (fname (concat where basename))
+		 (next (file-name-directory (directory-file-name where))))
+		(cond
+			((file-exists-p fname) fname)
+			((equal next where) nil)
+			(t (find-file-upwards basename next)))))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
